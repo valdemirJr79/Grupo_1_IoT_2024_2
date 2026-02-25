@@ -1,0 +1,389 @@
+[
+    {
+        "id": "986191c3c0907386",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "51cd0c69e2484ded",
+        "type": "inject",
+        "z": "986191c3c0907386",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 120,
+        "wires": [
+            [
+                "81edf6819c96546f"
+            ]
+        ]
+    },
+    {
+        "id": "81edf6819c96546f",
+        "type": "function",
+        "z": "986191c3c0907386",
+        "name": "function 1",
+        "func": "// Simulação de vibração de ADXL345 em 3 eixos\nlet vibX = (Math.random() * 2 - 1).toFixed(2); // Eixo X (-1 a 1 m/s²)\nlet vibY = (Math.random() * 2 - 1).toFixed(2);// Eixo X (-1 a 1 m/s²)\nlet vibZ = (9.81+(Math.random() * 0.5 - 0.25)).toFixed(2); // Eixo próximo da gravidade\n\nlet msgs = [];\n\nmsgs.push({topic: \"X\", payload: parseFloat(vibX)});\nmsgs.push({ topic: \"Y\", payload: parseFloat(vibY) });\nmsgs.push({ topic: \"Z\", payload: parseFloat(vibZ) });\nreturn [msgs];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 120,
+        "wires": [
+            [
+                "8b9fb66933b5a275",
+                "336e65fce4c7912c"
+            ]
+        ]
+    },
+    {
+        "id": "8b9fb66933b5a275",
+        "type": "debug",
+        "z": "986191c3c0907386",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "336e65fce4c7912c",
+        "type": "ui_chart",
+        "z": "986191c3c0907386",
+        "name": "",
+        "group": "d6794a80ae5ef389",
+        "order": 0,
+        "width": "6",
+        "height": "6",
+        "label": "Timão",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "-2",
+        "ymax": "12",
+        "removeOlder": "60",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "1",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 610,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a04a08158d11d56b",
+        "type": "inject",
+        "z": "986191c3c0907386",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 620,
+        "wires": [
+            [
+                "db0fb75210cc4e51"
+            ]
+        ]
+    },
+    {
+        "id": "db0fb75210cc4e51",
+        "type": "function",
+        "z": "986191c3c0907386",
+        "name": "conversores",
+        "func": "// Simulação de vibração de ADXL345 em 3 eixos\n// Eixo X (-1 a 1 m/s²)\nlet celsius = (Math.random() * 100 - 1).toFixed(2);// Eixo X (-1 a 1 m/s²)\nlet fahren = ( (9 / 5 * parseFloat(celsius)) + 32).toFixed(2);\nlet kelvin = ((parseFloat(celsius)+273.15).toFixed(2)); // Eixo próximo da gravidade\n\nlet msgs = [];\n\nmsgs.push({ topic: \"fahren\", payload: parseFloat(fahren) });\nmsgs.push({ topic: \"kelvin\", payload: parseFloat(kelvin) });\nmsgs.push({ topic: \"Celsius\", payload: parseFloat(celsius)});\nreturn [msgs];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 620,
+        "wires": [
+            [
+                "5feb02e819c5dcef",
+                "51f156e427bc824f",
+                "3c41625a98e444f9"
+            ]
+        ]
+    },
+    {
+        "id": "5feb02e819c5dcef",
+        "type": "ui_chart",
+        "z": "986191c3c0907386",
+        "name": "",
+        "group": "2493c309c701de04",
+        "order": 0,
+        "width": "6",
+        "height": "6",
+        "label": "Pumba",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "-20",
+        "ymax": "300",
+        "removeOlder": "90",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "1",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#104b75",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#2d881b",
+            "#e42121",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 580,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "51f156e427bc824f",
+        "type": "debug",
+        "z": "986191c3c0907386",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "67562962bc3bd609",
+        "type": "inject",
+        "z": "986191c3c0907386",
+        "name": "Limitemp",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 400,
+        "wires": [
+            [
+                "a5709b4b4b3e1558"
+            ]
+        ]
+    },
+    {
+        "id": "3c41625a98e444f9",
+        "type": "function",
+        "z": "986191c3c0907386",
+        "name": "status",
+        "func": "let limite = global.get(\"limiteTemp\") || 30;\nlet temp = msg.payload;\n\nif(temp>= limite){\n    msg.status = \"Alarme!\";\n    msg.color = \"Red\";\n}else{\n    msg.status = \"Normal\";\n    msg.color = \"green\";\n}\n\nmsg.limite = limite;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 620,
+        "wires": [
+            [
+                "e88dee7bd4d4c826",
+                "9720fc2c1fdfb4f0"
+            ]
+        ]
+    },
+    {
+        "id": "e88dee7bd4d4c826",
+        "type": "ui_gauge",
+        "z": "986191c3c0907386",
+        "name": "",
+        "group": "cadece0a706c7267",
+        "order": 0,
+        "width": "6",
+        "height": "8",
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 790,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "a5709b4b4b3e1558",
+        "type": "function",
+        "z": "986191c3c0907386",
+        "name": "function 4",
+        "func": "// Simulação de vibração de ADXL345 em 3 eixos\n// Eixo X (-1 a 1 m/s²)\nlet celsius = (Math.random() * 100 - 1).toFixed(2);// Eixo X (-1 a 1 m/s²)\nlet fahren = ( (9 / 5 * parseFloat(celsius)) + 32).toFixed(2);\nlet kelvin = (Math.random()+(parseFloat(celsius)+273,15).toFixed(2)); // Eixo próximo da gravidade\n\nlet msgs = [];\n\nmsgs.push({ topic: \"Celsius\", payload: parseFloat(celsius)});\nmsgs.push({ topic: \"fahren\", payload: parseFloat(fahren) });\nmsgs.push({ topic: \"kelvin\", payload: parseFloat(kelvin) });\nreturn [msgs];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9720fc2c1fdfb4f0",
+        "type": "ui_text",
+        "z": "986191c3c0907386",
+        "group": "cadece0a706c7267",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Status:",
+        "format": "{{msg.status}}",
+        "layout": "row-left",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 780,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "d6794a80ae5ef389",
+        "type": "ui_group",
+        "name": "Group 1",
+        "tab": "808286a8ac54b8f3",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "2493c309c701de04",
+        "type": "ui_group",
+        "name": "Group 2",
+        "tab": "808286a8ac54b8f3",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "cadece0a706c7267",
+        "type": "ui_group",
+        "name": "Group 3",
+        "tab": "808286a8ac54b8f3",
+        "order": 3,
+        "disp": true,
+        "width": 6
+    },
+    {
+        "id": "808286a8ac54b8f3",
+        "type": "ui_tab",
+        "name": "Tab 2",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]
