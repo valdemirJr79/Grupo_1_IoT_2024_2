@@ -1,0 +1,347 @@
+[
+    {
+        "id": "3fe58f7dad672042",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "dfb97bdd1cdac16b",
+        "type": "inject",
+        "z": "3fe58f7dad672042",
+        "name": "Vibração",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 160,
+        "wires": [
+            [
+                "dcebbb1d375bbb05"
+            ]
+        ]
+    },
+    {
+        "id": "dcebbb1d375bbb05",
+        "type": "function",
+        "z": "3fe58f7dad672042",
+        "name": "Gerar Vibração",
+        "func": "//Simulação de vibração do ADXL345 em 3 eixos\nlet vibX = (Math.random() * 2 - 1).toFixed(2); // Eixo X (-1 a 1 m/s²)\nlet vibY = (Math.random() * 2 - 1).toFixed(2); // Eixo Y (-1 a 1 m/s²)\nlet vibZ = (9.81+ (Math.random() * 0.5 - 0.25)).toFixed(2); // Eixo Z próxima da gravidade\n\n//Enviar três mensagens separadas (para o gráfico identficar cada série)\nlet msgs = [];\nmsgs.push({topic: \"X\", payload: parseFloat(vibX)});\nmsgs.push({topic: \"Y\", payload: parseFloat(vibY)});\nmsgs.push({topic: \"Z\", payload: parseFloat(vibZ)});\n\nreturn [msgs];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 160,
+        "wires": [
+            [
+                "2ee86ea2624dbf5a",
+                "dfeb9ed557632989"
+            ]
+        ]
+    },
+    {
+        "id": "2ee86ea2624dbf5a",
+        "type": "debug",
+        "z": "3fe58f7dad672042",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "dfeb9ed557632989",
+        "type": "ui_chart",
+        "z": "3fe58f7dad672042",
+        "name": "",
+        "group": "984d227df64581b0",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "label": "Vibração",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "-2",
+        "ymax": "12",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#b719cc",
+            "#19d016",
+            "#da3b07",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "vibracao",
+        "x": 700,
+        "y": 160,
+        "wires": [
+            [
+                "f2ce8fbbb334a0d0"
+            ]
+        ]
+    },
+    {
+        "id": "a87df1eb1fc4ecc9",
+        "type": "inject",
+        "z": "3fe58f7dad672042",
+        "name": "Temperatura",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 400,
+        "wires": [
+            [
+                "01727cd65787c6bb"
+            ]
+        ]
+    },
+    {
+        "id": "01727cd65787c6bb",
+        "type": "function",
+        "z": "3fe58f7dad672042",
+        "name": "Gerar Temperatura",
+        "func": "//Simulação de vibração do ADXL345 em 3 eixos\nlet min = -35;\nlet max = 35;\n\nlet Celsius = (Math.floor(Math.random() * (max - min + 1)) + min).toFixed(2); // Eixo Y (-1 a 1 m/s²)\nlet Fahrenheit = ((9 / 5 * parseFloat(Celsius) + 32 ).toFixed(2)); // Eixo X (-1 a 1 m/s²)\nlet Kelvin = (parseFloat(Celsius) + 273.15).toFixed(2); // Eixo Z próxima da gravidade\n\n//Enviar três mensagens separadas (para o gráfico identficar cada série)\nlet temp = [];\ntemp.push({topic: \"Fahrenheit\", payload: parseFloat(Fahrenheit)});\ntemp.push({topic: \"Kelvin\", payload: parseFloat(Kelvin)});\ntemp.push({topic: \"Celsius\", payload: parseFloat(Celsius)});\n\nreturn [temp];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 400,
+        "wires": [
+            [
+                "9d901792a2792e91",
+                "ae763496053e7781"
+            ]
+        ]
+    },
+    {
+        "id": "9d901792a2792e91",
+        "type": "ui_chart",
+        "z": "3fe58f7dad672042",
+        "name": "",
+        "group": "7edf5b4ea1a4c915",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "label": "Temperatura",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "-40",
+        "ymax": "320",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#cad714",
+            "#f910f1",
+            "#00fac8",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 690,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "da610b2e970fd14a",
+        "type": "ui_gauge",
+        "z": "3fe58f7dad672042",
+        "name": "",
+        "group": "e12b1a8640c1bf2f",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "gtype": "gage",
+        "title": "Temp. Gauge (C°)",
+        "label": "Celsius (C°)",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "20",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 970,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "ae763496053e7781",
+        "type": "function",
+        "z": "3fe58f7dad672042",
+        "name": "Gauge Temp.",
+        "func": "let limite = global.get(\"limiteTemp\") || 12;\nlet temp = msg.payload;\n\nif (temp >= limite){\n    msg.status = \"ALARME!\";\n    msg.color = \"red\";\n} else {\n    msg.status = \"Normal\";\n    msg.color = \"green\";\n}\n\nmsg.limite = limite;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 400,
+        "wires": [
+            [
+                "da610b2e970fd14a",
+                "84b2ba63e3507926"
+            ]
+        ]
+    },
+    {
+        "id": "84b2ba63e3507926",
+        "type": "ui_text",
+        "z": "3fe58f7dad672042",
+        "group": "e12b1a8640c1bf2f",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Status",
+        "format": "{{msg.status}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 930,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "f2ce8fbbb334a0d0",
+        "type": "ui_template",
+        "z": "3fe58f7dad672042",
+        "group": "",
+        "name": "vibracao",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\n    .nr-dashboard-group {\n        background: red !important;\n    }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "global",
+        "className": "",
+        "x": 860,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "984d227df64581b0",
+        "type": "ui_group",
+        "name": "Vibração",
+        "tab": "d4e6db7427453952",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": "vibracao"
+    },
+    {
+        "id": "7edf5b4ea1a4c915",
+        "type": "ui_group",
+        "name": "Temperatura (C° / °F / K)",
+        "tab": "d4e6db7427453952",
+        "order": 3,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "e12b1a8640c1bf2f",
+        "type": "ui_group",
+        "name": "Gauge",
+        "tab": "d4e6db7427453952",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "d4e6db7427453952",
+        "type": "ui_tab",
+        "name": "Tab 1",
+        "icon": "dashboard",
+        "order": 1
+    }
+]
