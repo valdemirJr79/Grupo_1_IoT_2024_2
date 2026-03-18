@@ -1,0 +1,113 @@
+[
+    {
+        "id": "f315d63cd69e3585",
+        "type": "tab",
+        "label": "Vibração Simples",
+        "disabled": false
+    },
+    {
+        "id": "c8fdf297a48bc583",
+        "type": "inject",
+        "z": "f315d63cd69e3585",
+        "name": "Tick 100ms",
+        "props": [],
+        "repeat": "0.1",
+        "once": true,
+        "onceDelay": "1",
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "919f4ef1b475465f"
+            ]
+        ]
+    },
+    {
+        "id": "919f4ef1b475465f",
+        "type": "function",
+        "z": "f315d63cd69e3585",
+        "name": "Gerador Vibração",
+        "func": "let t = context.get('t') || 0;\nt += 0.1;\ncontext.set('t', t);\n\nlet stages = [100, 200, 400, 600, 800, 1000];\nlet stageIndex = Math.floor(t / 10) % stages.length;\nlet amp_pp = stages[stageIndex];\nlet amp = amp_pp / 2;\n\nlet freq = 2;\nlet value = amp * Math.sin(2 * Math.PI * freq * t);\n\nmsg.payload = value;\nmsg.pp = (Math.abs(value) * 2).toFixed(1);\nreturn msg;",
+        "outputs": 1,
+        "x": 360,
+        "y": 80,
+        "wires": [
+            [
+                "dc57e422ec1aed9d",
+                "455ec4319d96558d"
+            ]
+        ]
+    },
+    {
+        "id": "455ec4319d96558d",
+        "type": "function",
+        "z": "f315d63cd69e3585",
+        "name": "Valor para display",
+        "func": "msg.payload = msg.pp;\nreturn msg;",
+        "outputs": 1,
+        "x": 380,
+        "y": 160,
+        "wires": [
+            [
+                "0532a5be126404ee"
+            ]
+        ]
+    },
+    {
+        "id": "dc57e422ec1aed9d",
+        "type": "ui_chart",
+        "z": "f315d63cd69e3585",
+        "name": "Gráfico",
+        "group": "ui_group1",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Vibração",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "ymin": "-600",
+        "ymax": "600",
+        "removeOlder": "30",
+        "removeOlderUnit": "3600",
+        "outputs": 1,
+        "x": 600,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0532a5be126404ee",
+        "type": "ui_text",
+        "z": "f315d63cd69e3585",
+        "group": "ui_group1",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "Display",
+        "label": "STATUS:",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "x": 600,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "ui_group1",
+        "type": "ui_group",
+        "name": "Monitoramento",
+        "tab": "ui_tab1",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "ui_tab1",
+        "type": "ui_tab",
+        "name": "Vibração",
+        "icon": "dashboard",
+        "order": 1
+    }
+]
