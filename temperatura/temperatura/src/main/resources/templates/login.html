@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>LimaMedic - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            width: 350px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 600;
+            color: #00bcd4;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            font-size: 13px;
+            color: #555;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: #00bcd4;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #0097a7;
+        }
+
+        .register {
+            margin-top: 15px;
+            font-size: 13px;
+        }
+
+        .register a {
+            color: #00bcd4;
+            text-decoration: none;
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .success {
+            color: green;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="logo">LimaMedic</div>
+    <div class="subtitle">Sistema Médico</div>
+
+    <!-- Mensagem de erro -->
+    <div th:if="${erro}" class="error" th:text="${erro}"></div>
+
+    <!-- Mensagem de sucesso -->
+    <div th:if="${sucesso}" class="success" th:text="${sucesso}"></div>
+
+    <form th:action="@{/login}" method="post">
+
+        <div class="input-group">
+            <label>Email</label>
+            <input type="text" name="username" placeholder="Digite seu email" required>
+        </div>
+
+        <div class="input-group">
+            <label>Senha</label>
+            <input type="password" name="password" placeholder="Digite sua senha" required>
+        </div>
+
+        <button type="submit" class="btn">Entrar no Sistema</button>
+    </form>
+
+    <div class="register">
+        Não possui conta?
+        <a th:href="@{/cadastro}">Cadastrar usuário</a>
+    </div>
+
+</div>
+
+</body>
+</html>

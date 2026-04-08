@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>LimaMedic - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            width: 100%;
+            background: #00bcd4;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .menu a {
+            margin-left: 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .menu a:hover {
+            opacity: 0.8;
+        }
+
+        /* CONTEÚDO */
+        .container {
+            padding: 40px;
+        }
+
+        .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 250px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            color: #00bcd4;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">LimaMedic</div>
+
+    <div class="menu">
+        <a th:href="@{/agenda}">Agenda</a>
+        <a th:href="@{/pacientes}">Pacientes</a>
+        <a th:href="@{/logout}">Logout</a>
+    </div>
+</div>
+
+<!-- CONTEÚDO -->
+<div class="container">
+
+    <div class="title">Bem-vindo ao sistema LimaMedic</div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Agenda</h3>
+            <p>Gerencie consultas e horários dos pacientes.</p>
+        </div>
+
+        <div class="card">
+            <h3>Pacientes</h3>
+            <p>Visualize e cadastre informações dos pacientes.</p>
+        </div>
+
+        <div class="card">
+            <h3>Atendimentos</h3>
+            <p>Acompanhe o histórico de consultas realizadas.</p>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
