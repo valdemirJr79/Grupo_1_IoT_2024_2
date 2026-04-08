@@ -70,6 +70,7 @@ try:
 
                 except json.JSONDecodeError:
                     print("Erro ao decodificar JSON (linha inválida)")
+                    print(f"RAW: {repr(line)}")
                 except Exception as e:
                     print(f"Erro ao processar dados: {e}")
 

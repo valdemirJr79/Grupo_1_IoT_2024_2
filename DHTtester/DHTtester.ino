@@ -22,9 +22,6 @@ void loop() {
   }
 
   // Envia no formato JSON
-  Serial.print("{\"temperatura\":");
-  Serial.print(temperatura);
-  Serial.print(",\"umidade\":");
-  Serial.print(umidade);
-  Serial.println("}");
+  String json = "{\"temperatura\":" + String(temperatura) + ",\"umidade\":" + String(umidade) + "}";
+  Serial.println(json);
 }
