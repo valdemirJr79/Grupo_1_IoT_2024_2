@@ -129,16 +129,16 @@
     <!-- Mensagem de sucesso -->
     <div th:if="${sucesso}" class="success" th:text="${sucesso}"></div>
 
-    <form th:action="@{/login}" method="post">
+    <form th:action="@{/login}" method="post" th:object="${usuarioDto}">
 
         <div class="input-group">
-            <label>Email</label>
-            <input type="text" name="username" placeholder="Digite seu email" required>
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" th:field="*{email}" placeholder="Digite seu email" required>
         </div>
 
         <div class="input-group">
-            <label>Senha</label>
-            <input type="password" name="password" placeholder="Digite sua senha" required>
+            <label class="form-label">Senha</label>
+            <input type="password" class="form-control" th:field="*{senha}" placeholder="Digite sua senha" required>
         </div>
 
         <button type="submit" class="btn">Entrar na Fábrica 🍬</button>

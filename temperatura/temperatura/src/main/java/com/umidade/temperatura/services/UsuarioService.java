@@ -26,11 +26,19 @@ public class UsuarioService {
         return true;
     }
 
-    public Boolean validaUsuario(UsuarioDto dados){
-        Optional<UsuarioModel> usuarioOP = usuarioRepository.findByEmailAndSenha(dados.getEmail(), dados.getSenha());
-        if (usuarioOP.isEmpty()){
-            return false;
-        }
-        return true;
+    public UsuarioModel validaUsuario(UsuarioDto dados){
+
+        System.out.println("EMAIL: " + dados.getEmail());
+        System.out.println("SENHA: " + dados.getSenha());
+
+        Optional<UsuarioModel> usuarioOP =
+                usuarioRepository.findByEmailAndSenha(
+                        dados.getEmail().trim(),
+                        dados.getSenha().trim()
+                );
+
+        System.out.println("Encontrou? " + usuarioOP.isPresent());
+
+        return usuarioOP.orElse(null);
     }
 }
