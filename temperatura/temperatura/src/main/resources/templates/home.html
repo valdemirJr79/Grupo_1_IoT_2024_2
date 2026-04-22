@@ -2,10 +2,10 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>LimaMedic - Home</title>
+    <title>Choco Fábrica GT3 RS - Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -16,36 +16,35 @@
         }
 
         body {
-            background: #f4f7fb;
+            background: linear-gradient(135deg, #3b0a45, #6a0572, #a4508b);
+            min-height: 100vh;
         }
 
         /* NAVBAR */
         .navbar {
             width: 100%;
-            background: #00bcd4;
+            background: linear-gradient(90deg, #4b0082, #8a2be2);
             padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: white;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            color: #ffd700;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
         .logo {
-            font-size: 22px;
-            font-weight: 600;
+            font-size: 24px;
+            font-family: 'Pacifico', cursive;
+            color: #ffd700;
         }
 
         .menu a {
-            margin-left: 20px;
-            color: white;
+            color: #ffd700;
             text-decoration: none;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .menu a:hover {
-            opacity: 0.8;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: rgba(255,215,0,0.15);
         }
 
         /* CONTEÚDO */
@@ -54,38 +53,42 @@
         }
 
         .title {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #333;
+            font-size: 26px;
+            margin-bottom: 40px;
+            color: #fff;
         }
 
+        /* NOVO LAYOUT */
         .cards {
             display: flex;
+            flex-direction: column; /* um abaixo do outro */
             gap: 20px;
-            flex-wrap: wrap;
+            max-width: 300px;
         }
 
         .card {
-            background: white;
+            background: linear-gradient(145deg, #5a2a27, #3e1f1c);
             padding: 20px;
-            border-radius: 12px;
-            width: 250px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
             transition: 0.3s;
+            border: 2px solid #ffd70033;
+            cursor: pointer;
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateX(10px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
         }
 
         .card h3 {
-            color: #00bcd4;
-            margin-bottom: 10px;
+            color: #ffd700;
         }
 
         .card p {
             font-size: 14px;
-            color: #666;
+            color: #f5e6d3;
         }
     </style>
 </head>
@@ -93,11 +96,9 @@
 
 <!-- NAVBAR -->
 <div class="navbar">
-    <div class="logo">LimaMedic</div>
+    <div class="logo">Choco Fábrica GT3 RS</div>
 
     <div class="menu">
-        <a th:href="@{/agenda}">Agenda</a>
-        <a th:href="@{/pacientes}">Pacientes</a>
         <a th:href="@{/logout}">Logout</a>
     </div>
 </div>
@@ -105,23 +106,23 @@
 <!-- CONTEÚDO -->
 <div class="container">
 
-    <div class="title">Bem-vindo ao sistema LimaMedic</div>
+    <div class="title">🍫 Bem-vindo à Choco Fábrica GT3 RS</div>
 
     <div class="cards">
 
         <div class="card">
-            <h3>Agenda</h3>
-            <p>Gerencie consultas e horários dos pacientes.</p>
+            <h3>Cadastrar</h3>
+            <p>Adicione novos registros ao sistema.</p>
         </div>
 
         <div class="card">
-            <h3>Pacientes</h3>
-            <p>Visualize e cadastre informações dos pacientes.</p>
+            <h3>Deletar</h3>
+            <p>Remova informações existentes.</p>
         </div>
 
         <div class="card">
-            <h3>Atendimentos</h3>
-            <p>Acompanhe o histórico de consultas realizadas.</p>
+            <h3>Alterar</h3>
+            <p>Edite dados já cadastrados.</p>
         </div>
 
     </div>

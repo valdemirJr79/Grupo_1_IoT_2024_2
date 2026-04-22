@@ -28,13 +28,9 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String autenticar(@RequestParam String email,
-                             @RequestParam String senha,
-                             Model model) {
+    public String autenticar(UsuarioDto usuarioDto, Model model) {
 
-        if(email.equals("admin@email.com") && senha.equals("123")) {
-            return "redirect:/home";
-        }
+
 
         model.addAttribute("erro", "Email ou senha inválidos!");
         return "login";

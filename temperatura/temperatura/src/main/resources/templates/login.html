@@ -2,10 +2,10 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>LimaMedic - Login</title>
+    <title>Choco Fábrica GT3 RS - Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -17,32 +17,33 @@
 
         body {
             height: 100vh;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            background: linear-gradient(135deg, #3b0a45, #6a0572, #a4508b);
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .container {
-            background: #ffffff;
+            background: linear-gradient(145deg, #5a2a27, #3e1f1c);
             padding: 40px;
-            border-radius: 15px;
+            border-radius: 20px;
             width: 350px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             text-align: center;
+            border: 2px solid rgba(255, 215, 0, 0.3);
         }
 
         .logo {
-            font-size: 28px;
-            font-weight: 600;
-            color: #00bcd4;
-            margin-bottom: 20px;
+            font-size: 26px;
+            font-family: 'Pacifico', cursive;
+            color: #ffd700;
+            margin-bottom: 10px;
         }
 
         .subtitle {
             font-size: 14px;
-            color: #777;
-            margin-bottom: 30px;
+            color: #f5e6d3;
+            margin-bottom: 25px;
         }
 
         .input-group {
@@ -52,51 +53,64 @@
 
         .input-group label {
             font-size: 13px;
-            color: #555;
+            color: #ffd700;
         }
 
         .input-group input {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
+            border-radius: 10px;
+            border: 1px solid #ffd70055;
             outline: none;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        .input-group input::placeholder {
+            color: #ddd;
         }
 
         .btn {
             width: 100%;
             padding: 12px;
             border: none;
-            border-radius: 10px;
-            background: #00bcd4;
-            color: white;
-            font-weight: 600;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #ffd700, #ffb300);
+            color: #4b0082;
+            font-weight: 700;
             cursor: pointer;
+            transition: 0.3s;
         }
 
         .btn:hover {
-            background: #0097a7;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #ffd700;
         }
 
         .register {
             margin-top: 15px;
             font-size: 13px;
+            color: #f5e6d3;
         }
 
         .register a {
-            color: #00bcd4;
+            color: #ffd700;
             text-decoration: none;
         }
 
+        .register a:hover {
+            text-decoration: underline;
+        }
+
         .error {
-            color: red;
+            color: #ff6b6b;
             font-size: 13px;
             margin-bottom: 10px;
         }
 
         .success {
-            color: green;
+            color: #4caf50;
             font-size: 13px;
             margin-bottom: 10px;
         }
@@ -106,8 +120,8 @@
 
 <div class="container">
 
-    <div class="logo">LimaMedic</div>
-    <div class="subtitle">Sistema Médico</div>
+    <div class="logo">Choco Fábrica GT3 RS</div>
+    <div class="subtitle">🍫 Sistema da Fábrica de Chocolate</div>
 
     <!-- Mensagem de erro -->
     <div th:if="${erro}" class="error" th:text="${erro}"></div>
@@ -127,7 +141,7 @@
             <input type="password" name="password" placeholder="Digite sua senha" required>
         </div>
 
-        <button type="submit" class="btn">Entrar no Sistema</button>
+        <button type="submit" class="btn">Entrar na Fábrica 🍬</button>
     </form>
 
     <div class="register">
