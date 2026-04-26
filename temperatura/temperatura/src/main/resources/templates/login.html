@@ -123,22 +123,28 @@
     <div class="logo">Choco Fábrica GT3 RS</div>
     <div class="subtitle">🍫 Sistema da Fábrica de Chocolate</div>
 
-    <!-- Mensagem de erro -->
-    <div th:if="${erro}" class="error" th:text="${erro}"></div>
+    <!-- Mensagem de erro do Spring -->
+    <div th:if="${param.error}" class="error">
+        Email ou senha inválidos!
+    </div>
 
-    <!-- Mensagem de sucesso -->
-    <div th:if="${sucesso}" class="success" th:text="${sucesso}"></div>
+    <!-- Mensagem de logout (opcional) -->
+    <div th:if="${param.logout}" class="success">
+        Logout realizado com sucesso!
+    </div>
 
-    <form th:action="@{/login}" method="post" th:object="${usuarioDto}">
+    <form th:action="@{/login}" method="post">
 
         <div class="input-group">
             <label class="form-label">Email</label>
-            <input type="email" class="form-control" th:field="*{email}" placeholder="Digite seu email" required>
+            <input type="email" name="username" class="form-control"
+                   placeholder="Digite seu email" required>
         </div>
 
         <div class="input-group">
             <label class="form-label">Senha</label>
-            <input type="password" class="form-control" th:field="*{senha}" placeholder="Digite sua senha" required>
+            <input type="password" name="password" class="form-control"
+                   placeholder="Digite sua senha" required>
         </div>
 
         <button type="submit" class="btn">Entrar na Fábrica 🍬</button>

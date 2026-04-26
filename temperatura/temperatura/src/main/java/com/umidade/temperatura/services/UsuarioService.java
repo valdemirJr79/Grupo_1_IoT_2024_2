@@ -3,42 +3,78 @@ package com.umidade.temperatura.services;
 import com.umidade.temperatura.dto.UsuarioDto;
 import com.umidade.temperatura.models.UsuarioModel;
 import com.umidade.temperatura.repositories.UsuarioRepository;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service
 public class UsuarioService {
 
+    private final PasswordEncoder passwordEncoder;
     private UsuarioRepository usuarioRepository;
 
-    public UsuarioService(UsuarioRepository usuarioRepository){
+    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder){
         this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public Boolean criarUsuario(UsuarioDto dados){
-        UsuarioModel usuarioModel = new UsuarioModel();
+  
 
-        usuarioModel.setEmail(dados.getEmail());
-        usuarioModel.setSenha(dados.getSenha());
-        usuarioRepository.save(usuarioModel);
+    public void cadastrarUsuario(String email, String senha) {
 
-        return true;
+        if (usuarioRepository.findByEmail(email).isPresent()) {
+            throw new RuntimeException("Email já cadastrado!");
+        }
+
+        UsuarioModel usuario = new UsuarioModel();
+        usuario.setEmail(email);
+        usuario.setSenha(passwordEncoder.encode(senha)); // 🔥 regra importante
+        usuario.setRole("USER");
+
+        usuarioRepository.save(usuario);
     }
 
-    public UsuarioModel validaUsuario(UsuarioDto dados){
+    public Boolean editaUsuario(UsuarioDto dados, Long id){
+        Optional<UsuarioModel> usuarioOP = usuarioRepository.findById(id);
 
-        System.out.println("EMAIL: " + dados.getEmail());
-        System.out.println("SENHA: " + dados.getSenha());
+        if (usuarioOP.isPresent()){
+            Optional<UsuarioModel> testaEmail = usuarioRepository.findByEmail(dados.getEmail());
 
-        Optional<UsuarioModel> usuarioOP =
-                usuarioRepository.findByEmailAndSenha(
-                        dados.getEmail().trim(),
-                        dados.getSenha().trim()
-                );
+            if (testaEmail.isPresent()){
+                return false;
+            }
 
-        System.out.println("Encontrou? " + usuarioOP.isPresent());
+            UsuarioModel usuario = usuarioOP.get();
 
-        return usuarioOP.orElse(null);
+            usuario.setEmail(dados.getEmail());
+            usuario.setSenha(dados.getSenha());
+            usuarioRepository.save(usuario);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Boolean excluirUsuario(Long id){
+        Optional<UsuarioModel> usuarioOP = usuarioRepository.findById(id);
+
+        if (usuarioOP.isPresent()){
+
+            usuarioRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return username -> usuarioRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
     }
 }
