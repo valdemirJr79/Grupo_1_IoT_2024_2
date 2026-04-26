@@ -3,6 +3,7 @@ package com.umidade.temperatura.services;
 import com.umidade.temperatura.dto.UsuarioDto;
 import com.umidade.temperatura.models.UsuarioModel;
 import com.umidade.temperatura.repositories.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,14 +17,12 @@ import java.util.Optional;
 public class UsuarioService {
 
     private final PasswordEncoder passwordEncoder;
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
     public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder){
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
     }
-
-  
 
     public void cadastrarUsuario(String email, String senha) {
 
@@ -72,9 +71,12 @@ public class UsuarioService {
         }
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return username -> usuarioRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+    public void testeSenha() {
+        String senhaDigitada = "123"; // coloque a senha que você usa no login
+        String senhaBanco = "$2a$10$lriiIg9ynLqt1xixeMyb2urzzR53G5CDtAWsCS.Y4d6h2GiDYwQOW"; // cole exatamente do banco
+
+        boolean resultado = passwordEncoder.matches(senhaDigitada, senhaBanco);
+
+        System.out.println("Senha bate? " + resultado);
     }
 }
