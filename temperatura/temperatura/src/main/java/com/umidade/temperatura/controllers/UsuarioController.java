@@ -1,5 +1,6 @@
 package com.umidade.temperatura.controllers;
 
+import com.umidade.temperatura.dto.UsuarioDto;
 import com.umidade.temperatura.models.UsuarioModel;
 import com.umidade.temperatura.repositories.UsuarioRepository;
 import com.umidade.temperatura.services.UsuarioService;
@@ -8,6 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class UsuarioController {

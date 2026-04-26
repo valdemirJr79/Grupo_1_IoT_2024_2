@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Deletar Usuário</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #3b0a45, #6a0572, #a4508b);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            width: 100%;
+            background: linear-gradient(90deg, #4b0082, #8a2be2);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffd700;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-family: 'Pacifico', cursive;
+            color: #ffd700;
+        }
+
+        .menu a {
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: rgba(255,215,0,0.15);
+        }
+
+        /* CENTRALIZAÇÃO */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 80px);
+        }
+
+        .content-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .title {
+            font-size: 26px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .form-card {
+            background: linear-gradient(145deg, #5a2a27, #3e1f1c);
+            padding: 30px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            border: 2px solid #ffd70033;
+        }
+
+        label {
+            color: #ffd700;
+            font-size: 14px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 20px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+        }
+
+        /* BOTÃO DE PERIGO */
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 20px;
+            background: #ff4d4d;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #cc0000;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">Choco Fábrica GT3 RS</div>
+
+    <div class="menu">
+        <a th:href="@{/logout}">Logout</a>
+    </div>
+</div>
+
+
+
+<div class="container">
+
+    <div class="content-box">
+
+        <div class="title"> Deletar Usuário</div>
+
+        <div class="form-card">
+
+            <form th:action="@{/usuarios/deletar}" method="post"
+                  onsubmit="return confirm('Tem certeza que deseja deletar este usuário?');">
+
+                <!-- CSRF -->
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+                <label>Selecionar Usuário</label>
+                <select name="userId" required>
+                    <option value="">-- Escolha --</option>
+                    <option th:each="user : ${usuarios}"
+                            th:value="${user.id}"
+                            th:text="${user.email}">
+                    </option>
+                </select>
+
+                <button type="submit">Deletar Usuário</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

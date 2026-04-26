@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,24 +41,31 @@ public class UsuarioService {
     }
 
     public Boolean editaUsuario(UsuarioDto dados, Long id){
+
         Optional<UsuarioModel> usuarioOP = usuarioRepository.findById(id);
 
-        if (usuarioOP.isPresent()){
-            Optional<UsuarioModel> testaEmail = usuarioRepository.findByEmail(dados.getEmail());
-
-            if (testaEmail.isPresent()){
-                return false;
-            }
-
-            UsuarioModel usuario = usuarioOP.get();
-
-            usuario.setEmail(dados.getEmail());
-            usuario.setSenha(dados.getSenha());
-            usuarioRepository.save(usuario);
-            return true;
-        } else {
+        if (usuarioOP.isEmpty()) {
             return false;
         }
+
+        UsuarioModel usuario = usuarioOP.get();
+
+        // 🔥 verifica se email já existe EM OUTRO usuário
+        Optional<UsuarioModel> testaEmail = usuarioRepository.findByEmail(dados.getEmail());
+
+        if (testaEmail.isPresent() && !testaEmail.get().getId().equals(id)) {
+            return false;
+        }
+
+        usuario.setEmail(dados.getEmail());
+
+        // 🔥 só altera senha se foi preenchida
+        if (dados.getSenha() != null && !dados.getSenha().isEmpty()) {
+            usuario.setSenha(passwordEncoder.encode(dados.getSenha()));
+        }
+
+        usuarioRepository.save(usuario);
+        return true;
     }
 
     public Boolean excluirUsuario(Long id){
@@ -78,5 +87,22 @@ public class UsuarioService {
         boolean resultado = passwordEncoder.matches(senhaDigitada, senhaBanco);
 
         System.out.println("Senha bate? " + resultado);
+    }
+
+    public List<UsuarioDto> listaUsuario(){
+        List<UsuarioDto> listaUsuarioDto = new ArrayList<>();
+        List<UsuarioModel> listaUsuario = usuarioRepository.findAll();
+
+        for (UsuarioModel usuario : listaUsuario){
+            UsuarioDto usuarioDto = new UsuarioDto();
+
+            usuarioDto.setId(usuario.getId());
+            usuarioDto.setEmail(usuario.getEmail());
+            usuarioDto.setSenha(usuario.getEmail());
+            usuarioDto.setRole(usuario.getRole());
+
+            listaUsuarioDto.add(usuarioDto);
+        }
+        return listaUsuarioDto;
     }
 }

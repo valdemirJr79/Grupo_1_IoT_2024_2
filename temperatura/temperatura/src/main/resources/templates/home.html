@@ -110,20 +110,25 @@
 
     <div class="cards">
 
-        <div class="card">
-            <h3>Cadastrar</h3>
-            <p>Adicione novos registros ao sistema.</p>
-        </div>
+
+            <div class="card">
+                <h3>Cadastrar</h3>
+                <p>Adicione novos registros ao sistema.</p>
+
+            </div>
+
 
         <div class="card">
             <h3>Deletar</h3>
             <p>Remova informações existentes.</p>
-        </div>
 
-        <div class="card">
-            <h3>Alterar</h3>
-            <p>Edite dados já cadastrados.</p>
         </div>
+        <a th:href="@{/usuarios/alterar}">
+            <div class="card">
+                <h3>Alterar</h3>
+                <p>Edite dados já cadastrados.</p>
+            </div>
+        </a>
 
     </div>
 
