@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
     <title>Choco Fábrica GT3 RS - Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet">
 
@@ -54,16 +59,21 @@
 
         .title {
             font-size: 26px;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             color: #fff;
         }
 
-        /* NOVO LAYOUT */
+        .user-info {
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
         .cards {
             display: flex;
-            flex-direction: column; /* um abaixo do outro */
+            flex-direction: column;
             gap: 20px;
-            max-width: 300px;
+            max-width: 320px;
         }
 
         .card {
@@ -90,47 +100,77 @@
             font-size: 14px;
             color: #f5e6d3;
         }
+
+        .alert {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid #ff6b6b;
+            padding: 15px;
+            border-radius: 10px;
+            color: #fff;
+        }
     </style>
+
+
 </head>
+
 <body>
 
 <!-- NAVBAR -->
+
 <div class="navbar">
     <div class="logo">Choco Fábrica GT3 RS</div>
+
 
     <div class="menu">
         <a th:href="@{/logout}">Logout</a>
     </div>
+
+
 </div>
 
 <!-- CONTEÚDO -->
+
 <div class="container">
+
 
     <div class="title">🍫 Bem-vindo à Choco Fábrica GT3 RS</div>
 
+    <!-- INFO DO USUÁRIO -->
+    <div class="user-info">
+        👤 Usuário: <span sec:authentication="name"></span><br>
+    </div>
+
     <div class="cards">
 
+        <!-- ADMIN -->
+        <div sec:authorize="hasRole('ADMIN')">
 
-            <div class="card">
-                <h3>Cadastrar</h3>
-                <p>Adicione novos registros ao sistema.</p>
+            <a th:href="@{/usuarios/deletar}">
+                <div class="card">
+                    <h3>🗑️ Deletar Usuário</h3>
+                    <p>Remova usuários do sistema.</p>
+                </div>
+            </a>
 
-            </div>
-
-
-        <div class="card">
-            <h3>Deletar</h3>
-            <p>Remova informações existentes.</p>
+            <a th:href="@{/usuarios/alterar}">
+                <div class="card">
+                    <h3>✏️ Alterar Usuário</h3>
+                    <p>Edite dados já cadastrados.</p>
+                </div>
+            </a>
 
         </div>
-        <a th:href="@{/usuarios/alterar}">
-            <div class="card">
-                <h3>Alterar</h3>
-                <p>Edite dados já cadastrados.</p>
+
+        <!-- USER -->
+        <div sec:authorize="hasRole('USER')">
+            <div class="alert">
+                ⚠️ Você possui acesso limitado.<br>
+                Apenas administradores podem gerenciar usuários.
             </div>
-        </a>
+        </div>
 
     </div>
+
 
 </div>
 

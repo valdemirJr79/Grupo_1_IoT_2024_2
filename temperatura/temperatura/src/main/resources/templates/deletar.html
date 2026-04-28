@@ -107,12 +107,25 @@
         button:hover {
             background: #cc0000;
         }
+        .success {
+            color: #4caf50;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .error {
+            color: #ff6b6b;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
 
 <div class="navbar">
-    <div class="logo">Choco Fábrica GT3 RS</div>
+    <a th:href="@{/home}">
+        <div class="logo">Choco Fábrica GT3 RS</div>
+    </a>
 
     <div class="menu">
         <a th:href="@{/logout}">Logout</a>
@@ -127,16 +140,17 @@
 
         <div class="title"> Deletar Usuário</div>
 
+        <!-- 🔥 Mensagens -->
+        <div th:if="${sucesso}" class="success" th:text="${sucesso}"></div>
+        <div th:if="${erro}" class="error" th:text="${erro}"></div>
+
         <div class="form-card">
 
             <form th:action="@{/usuarios/deletar}" method="post"
                   onsubmit="return confirm('Tem certeza que deseja deletar este usuário?');">
 
-                <!-- CSRF -->
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-
                 <label>Selecionar Usuário</label>
-                <select name="userId" required>
+                <select name="id" required>
                     <option value="">-- Escolha --</option>
                     <option th:each="user : ${usuarios}"
                             th:value="${user.id}"

@@ -28,7 +28,7 @@ public class SucurityConfig {
 
                         .requestMatchers("/home").hasAnyRole("USER", "ADMIN")
 
-                        .requestMatchers("/administrador/**").hasRole("ADMIN")
+                        .requestMatchers("/usuarios/alterar", "/usuarios/deletar").hasRole("ADMIN")
 
                         .requestMatchers("/cadastro").permitAll()
 
