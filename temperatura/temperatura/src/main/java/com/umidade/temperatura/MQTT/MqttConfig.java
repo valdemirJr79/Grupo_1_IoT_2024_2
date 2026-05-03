@@ -18,8 +18,8 @@ public class MqttConfig {
     @Bean
     public MqttPahoClientFactory factory() {
         DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
-
         MqttConnectOptions options = new MqttConnectOptions();
+
         options.setServerURIs(new String[]{"tcp://broker.hivemq.com:1883"});
 
         factory.setConnectionOptions(options);
@@ -37,9 +37,9 @@ public class MqttConfig {
 
         MqttPahoMessageDrivenChannelAdapter adapter =
                 new MqttPahoMessageDrivenChannelAdapter(
-                        "springClient",
+                        "springClient_" + System.currentTimeMillis(),
                         factory,
-                        "sensor/dados"
+                        "sensorTemperatura"
                 );
 
         adapter.setCompletionTimeout(5000);

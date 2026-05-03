@@ -32,14 +32,16 @@ public class AlterarController {
             @RequestParam Long id,
             @RequestParam String email,
             @RequestParam(required = false) String senha,
+            @RequestParam String role,
             Model model
     ) {
 
         UsuarioDto dto = new UsuarioDto();
         dto.setEmail(email);
         dto.setSenha(senha);
+        dto.setRole(role);
 
-        boolean sucesso = usuarioService.editaUsuario(dto, id);
+        boolean sucesso = usuarioService.editaUsuario(dto, id, role);
 
         if (sucesso) {
             model.addAttribute("sucesso", "Usuário atualizado com sucesso!");

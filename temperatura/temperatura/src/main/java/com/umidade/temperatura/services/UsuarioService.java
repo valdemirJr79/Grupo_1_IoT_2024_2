@@ -40,7 +40,7 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
     }
 
-    public Boolean editaUsuario(UsuarioDto dados, Long id){
+    public Boolean editaUsuario(UsuarioDto dados, Long id, String role){
 
         Optional<UsuarioModel> usuarioOP = usuarioRepository.findById(id);
 
@@ -58,6 +58,7 @@ public class UsuarioService {
         }
 
         usuario.setEmail(dados.getEmail());
+        usuario.setRole(dados.getRole());
 
         // 🔥 só altera senha se foi preenchida
         if (dados.getSenha() != null && !dados.getSenha().isEmpty()) {

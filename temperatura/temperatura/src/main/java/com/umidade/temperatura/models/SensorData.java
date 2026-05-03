@@ -18,7 +18,5 @@ public class SensorData {
 
     private Double umidade;
 
-    private String mac;
-
-    private LocalDateTime dataHora;
+    private LocalDateTime timestamp;
 }
