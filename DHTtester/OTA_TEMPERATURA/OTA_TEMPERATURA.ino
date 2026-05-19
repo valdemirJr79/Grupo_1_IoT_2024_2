@@ -22,6 +22,8 @@ void setup() {
   Serial.println("Conectado à rede Wi-Fi");
   Serial.print("Endereço IP: ");
   Serial.println(WiFi.localIP());
+  Serial.print("MAC Address do ESP32: ");
+  Serial.println(WiFi.macAddress());
 
   ArduinoOTA.onStart([]() {
     String type;

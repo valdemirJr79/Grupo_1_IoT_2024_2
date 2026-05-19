@@ -1,0 +1,65 @@
+[
+    {
+        "id": "ae85a724b0d99264",
+        "type": "ui_chart",
+        "z": "a6a98659b467d67a",
+        "name": "",
+        "group": "12a1695595cc4c91",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Temperatura",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "10",
+        "ymax": "30",
+        "removeOlder": "5",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 590,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "12a1695595cc4c91",
+        "type": "ui_group",
+        "name": "Sensor",
+        "tab": "9d4dd8db9358d823",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9d4dd8db9358d823",
+        "type": "ui_tab",
+        "name": "Sensor",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
