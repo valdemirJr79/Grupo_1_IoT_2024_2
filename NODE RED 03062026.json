@@ -1,0 +1,22 @@
+[
+    {
+        "id": "0b39e335f3ab748a",
+        "type": "function",
+        "z": "99018d9797555cc3",
+        "name": "Calculate Differential",
+        "func": "let sensor1 = flow.get('sensor1');\nlet sensor2 = flow.get('sensor2');\n\n// Recebe Sensor1\nif (msg.topic === 'senai/temperatura/sensor1') {\n    sensor1 = Number(msg.payload);\n    flow.set('sensor1', sensor1);\n}\n\n// Recebe Sensor2\nif (msg.topic === 'senai/temperatura/sensor2') {\n    sensor2 = Number(msg.payload);\n    flow.set('sensor2', sensor2);\n}\n\n// Espera os dois sensores\nif (sensor1 === undefined || sensor2 === undefined) {\n    return null;\n}\n\n// Proteção contra valores fora da faixa\nif (sensor1 > 30 || sensor1 < 15) {\n    node.warn(\n        `Leitura ignorada: Sensor1 fora da faixa permitida (${sensor1}°C)`\n    );\n    return null;\n}\n\n// ======================================\n// MONITORAMENTO DE VARIAÇÃO EM 1 MINUTO\n// ======================================\n\nlet historico = flow.get('historicoSensor1') || [];\n\nhistorico.push({\n    temperatura: sensor1,\n    timestamp: Date.now()\n});\n\n// Mantém apenas os últimos 60 segundos\nhistorico = historico.filter(item =>\n    (Date.now() - item.timestamp) <= 60000\n);\n\nflow.set('historicoSensor1', historico);\n\n// Compara com a leitura mais antiga do último minuto\nif (historico.length > 1) {\n\n    let temperatura1MinAtras = historico[0].temperatura;\n\n    let variacao = Math.abs(sensor1 - temperatura1MinAtras);\n\n    if (variacao >= 5) {\n\n        node.warn(\n            `ALERTA! Sensor1 variou ${variacao.toFixed(2)}°C em menos de 1 minuto. ` +\n            `Anterior=${temperatura1MinAtras}°C Atual=${sensor1}°C`\n        );\n    }\n}\n\n// ======================================\n// COMPARAÇÃO ENTRE SENSORES\n// ======================================\n\nlet differential = Math.abs(sensor1 - sensor2);\n\nlet status = 'NORMAL';\n\nif (differential > 5 && differential < 15) {\n    status = 'ALERT';\n}\n\nif (differential >= 15) {\n    status = 'DANGER';\n}\n\n// ======================================\n// INSERT MYSQL\n// ======================================\n\nmsg.topic = `\nINSERT INTO temperaturas2\n(sensor1, sensor2, diferencial, status)\nVALUES (?, ?, ?, ?)\n`;\nnode.warn(\n        `Dado armazenado com sucesso, Sensor1: (${sensor1}°C)`\n    );\nmsg.payload = [\n    sensor1,\n    sensor2,\n    differential,\n    status\n];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 140,
+        "wires": [
+            [
+                "9e2b8337d3191ab5"
+            ]
+        ]
+    }
+]
